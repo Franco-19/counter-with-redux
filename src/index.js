@@ -1,6 +1,19 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-import App from "./App";
+import App from './App';
 
-ReactDOM.render(<App />, document.getElementById("root"));
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import reducer from './reducer';
+
+const initialState = { count: 1 };
+
+const store = createStore(reducer, initialState);
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);
