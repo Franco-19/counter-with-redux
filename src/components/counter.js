@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
 import CustomButton from './button/Button';
 
-export default function Counter() {
-  const [count, setCount] = useState(0);
+function Counter({ count }) {
+  // const [count, setCount] = useState(0);
 
   return (
     <div>
-      <CustomButton text="+" actualState={count} propSetState={setCount} />
-      <CustomButton text="-" actualState={count} propSetState={setCount} />
-      <CustomButton text="reset" actualState={count} propSetState={setCount} />
+      <CustomButton text="+" />
+      <CustomButton text="-" />
+      <CustomButton text="reset" />
 
       <button
         onClick={() => {
@@ -23,3 +24,14 @@ export default function Counter() {
     </div>
   );
 }
+
+const mapStateToProps = state => {
+  return {
+    count: state.count
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  null
+)(Counter);

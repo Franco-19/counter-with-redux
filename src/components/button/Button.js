@@ -1,17 +1,22 @@
 import React from 'react';
 
-export default function Button({ text, actualState, propSetState }) {
+import { connect } from 'react-redux'
+import { addValue, removeValue, resetValue } from '../../actions.js';
+
+import './Button-styles.css'
+
+function Button({ text, count, addValue, removeValue, resetValue }) {
   const makeOperation = () => {
     switch (text) {
       case '+':
-        return propSetState(actualState + 1);
+        return addValue();
       case '-':
-        if (actualState > 0) {
-          return propSetState(actualState - 1);
+        if (count > 0) {
+          return removeValue();
         }
         return console.log('no se puede restar mas!');
       case 'reset':
-        propSetState(0);
+        resetValue();
     }
   };
 
@@ -20,8 +25,23 @@ export default function Button({ text, actualState, propSetState }) {
       onClick={() => {
         makeOperation(text);
       }}
+      className='bg-red-500'
     >
       {text}
     </button>
   );
 }
+
+const mapDispatchToProps = {
+  addValue,
+  removeValue,
+  resetValue
+}
+
+const mapStateToProps = state => {
+  return {
+    count: state.count
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Button);

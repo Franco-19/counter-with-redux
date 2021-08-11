@@ -1,5 +1,17 @@
 const reducer = (state, action) => {
-  return state
-}
+  switch (action.type) {
+    case 'ADD_NUMBER':
+      return { count: state.count + 1 };
 
-export default reducer
+    case 'REMOVE_NUMBER':
+      return { count: state.count - 1 };
+
+    case 'RESET_NUMBER':
+      return { count: 0 };
+
+    default:
+      return state;
+  }
+};
+
+export default reducer;
